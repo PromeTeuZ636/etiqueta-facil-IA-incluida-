@@ -1,6 +1,285 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Etiqueta Fácil — editor de etiquetas</title><meta name="description" content="Crie etiquetas com código de barras, produto, códigos e validade."><link rel="stylesheet" href="style.css"></head>
-<body><header><a class="brand" href="./"><span class="brand-icon">▥</span> etiqueta<span>fácil</span></a><span class="header-note">DO PRODUTO À IMPRESSÃO</span><span class="pill"><i></i> Editor de etiquetas</span></header>
-<main><div class="intro"><div><span class="eyebrow">SIMPLES DE CRIAR. PRONTA PARA COLAR.</span><h1>Sua etiqueta, do seu jeito.</h1><p>Preencha os dados, confira a prévia e imprima.</p></div><button class="secondary" id="example">↺ Restaurar exemplo</button></div>
-<div class="workspace"><section class="card editor"><div class="section-head"><span class="step">01</span><div><h2>Informações do produto</h2><p>Os dados aparecem na etiqueta em tempo real.</p></div></div><form id="form" novalidate><label>Nome do produto<input id="product" maxlength="45" value="MASSA ACRILICA" autocomplete="off" required></label><div class="two"><label>Código do produto<input id="code" maxlength="20" value="5202598" required></label><label>Lote / segundo código<input id="lot" maxlength="22" value="55461705601" required></label></div><label>Código de barras (EAN-13)<input id="ean" maxlength="13" value="7891019105809" inputmode="numeric" aria-describedby="eanHelp" required><small id="eanHelp">Digite os 13 números do código do produto.</small></label><label>Validade<input id="expiry" type="month" value="2028-04" required></label><div class="divider"></div><div class="section-head compact"><span class="step">02</span><h2>Formato e impressão</h2></div><div class="two"><label>Largura (mm)<input id="width" type="number" value="100" min="60" max="190" required></label><label>Altura (mm)<input id="height" type="number" value="25" min="20" max="80" required></label></div><div class="two"><label>Quantidade<input id="quantity" type="number" value="12" min="1" max="200" required></label><label>Papel<select id="paper"><option value="a4">Folha A4</option><option value="roll">Etiqueta individual / bobina</option></select></label></div><div id="error" role="alert" hidden></div><button type="submit" class="primary">▤ &nbsp; Imprimir / salvar PDF <span>↗</span></button><p class="privacy">Seus dados ficam somente neste navegador.</p></form></section>
-<section class="preview-column"><div class="card preview"><div class="preview-head"><div><span class="eyebrow">CONFIRA ANTES DE IMPRIMIR</span><h2>Prévia da etiqueta</h2></div><span class="live"><i></i> Ao vivo</span></div><div class="preview-stage"><div id="labelPreview"></div><div class="dimension" id="dimension">100 × 25 mm</div></div><div class="preview-bottom"><span>▥ &nbsp; Código EAN-13</span><span>Preto e branco · sem bordas</span></div></div><div class="tip"><span>↗</span><div><h3>Da tela para o papel</h3><p>Na janela de impressão, use escala de <strong>100%</strong>, desative cabeçalhos e rodapés e escolha “Salvar como PDF” se quiser um arquivo. Confira as medidas em uma impressão de teste.</p><p id="layoutInfo"></p></div></div><details class="card reference"><summary>Modelo de referência <span>＋</span></summary><img src="referencia.jpg" alt="Modelo original: código de barras à esquerda, produto, códigos e validade à direita."><p>Estrutura baseada na imagem enviada. As medidas e a fonte da foto não foram informadas.</p></details></section></div><footer>ETIQUETA FÁCIL <span>Preencher. Conferir. Imprimir.</span></footer></main><div id="printArea"></div><script src="app.js"></script></body></html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    >
+
+    <title>Etiqueta PORTAL DAS CORES — editor de etiquetas</title>
+
+    <meta
+      name="description"
+      content="Crie etiquetas com código de barras, produto, códigos e validade."
+    >
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <header>
+      <a class="brand" href="./">
+        <span class="brand-icon">▥</span>
+        etiqueta<span>PORTAL DAS CORES</span>
+      </a>
+
+      <span class="header-note">
+        DO PRODUTO À IMPRESSÃO
+      </span>
+
+      <span class="pill">
+        <i></i>
+        Editor de etiquetas
+      </span>
+    </header>
+
+    <main>
+      <!-- Apresentação -->
+      <div class="intro">
+        <div>
+          <span class="eyebrow">
+            SIMPLES DE CRIAR. PRONTA PARA COLAR.
+          </span>
+
+          <h1>Sua etiqueta, do seu jeito.</h1>
+          <p>Preencha os dados, confira a prévia e imprima.</p>
+        </div>
+
+        <button class="secondary" id="example">
+          ↺ Restaurar exemplo
+        </button>
+      </div>
+
+      <div class="workspace">
+        <!-- Formulário de edição -->
+        <section class="card editor">
+          <div class="section-head">
+            <span class="step">01</span>
+
+            <div>
+              <h2>Informações do produto</h2>
+              <p>Os dados aparecem na etiqueta em tempo real.</p>
+            </div>
+          </div>
+
+          <form id="form" novalidate>
+            <label>
+              Nome do produto
+
+              <input
+                id="product"
+                maxlength="45"
+                value="MASSA ACRILICA"
+                autocomplete="off"
+                required
+              >
+            </label>
+
+            <div class="two">
+              <label>
+                Código do produto
+
+                <input
+                  id="code"
+                  maxlength="20"
+                  value="5202598"
+                  required
+                >
+              </label>
+
+              <label>
+                Lote / segundo código
+
+                <input
+                  id="lot"
+                  maxlength="22"
+                  value="55461705601"
+                  required
+                >
+              </label>
+            </div>
+
+            <label>
+              Código de barras (EAN-13)
+
+              <input
+                id="ean"
+                maxlength="13"
+                value="7891019105809"
+                inputmode="numeric"
+                aria-describedby="eanHelp"
+                required
+              >
+
+              <small id="eanHelp">
+                Digite os 13 números do código do produto.
+              </small>
+            </label>
+
+            <label>
+              Validade
+
+              <input
+                id="expiry"
+                type="month"
+                value="2028-04"
+                required
+              >
+            </label>
+
+            <div class="divider"></div>
+
+            <!-- Configurações de impressão -->
+            <div class="section-head compact">
+              <span class="step">02</span>
+              <h2>Formato e impressão</h2>
+            </div>
+
+            <div class="two">
+              <label>
+                Largura (mm)
+
+                <input
+                  id="width"
+                  type="number"
+                  value="100"
+                  min="60"
+                  max="190"
+                  required
+                >
+              </label>
+
+              <label>
+                Altura (mm)
+
+                <input
+                  id="height"
+                  type="number"
+                  value="25"
+                  min="20"
+                  max="80"
+                  required
+                >
+              </label>
+            </div>
+
+            <div class="two">
+              <label>
+                Quantidade
+
+                <input
+                  id="quantity"
+                  type="number"
+                  value="12"
+                  min="1"
+                  max="200"
+                  required
+                >
+              </label>
+
+              <label>
+                Papel
+
+                <select id="paper">
+                  <option value="a4">Folha A4</option>
+                  <option value="roll">
+                    Etiqueta individual / bobina
+                  </option>
+                </select>
+              </label>
+            </div>
+
+            <div id="error" role="alert" hidden></div>
+
+            <button type="submit" class="primary">
+              ▤ &nbsp; Imprimir / salvar PDF
+              <span>↗</span>
+            </button>
+
+            <p class="privacy">
+              Seus dados ficam somente neste navegador.
+            </p>
+          </form>
+        </section>
+
+        <!-- Prévia e orientações -->
+        <section class="preview-column">
+          <div class="card preview">
+            <div class="preview-head">
+              <div>
+                <span class="eyebrow">
+                  CONFIRA ANTES DE IMPRIMIR
+                </span>
+
+                <h2>Prévia da etiqueta</h2>
+              </div>
+
+              <span class="live">
+                <i></i>
+                Ao vivo
+              </span>
+            </div>
+
+            <div class="preview-stage">
+              <div id="labelPreview"></div>
+              <div class="dimension" id="dimension">
+                100 × 25 mm
+              </div>
+            </div>
+
+            <div class="preview-bottom">
+              <span>▥ &nbsp; Código EAN-13</span>
+              <span>Preto e branco · sem bordas</span>
+            </div>
+          </div>
+
+          <div class="tip">
+            <span>↗</span>
+
+            <div>
+              <h3>Da tela para o papel</h3>
+
+              <p>
+                Na janela de impressão, use escala de
+                <strong>100%</strong>, desative cabeçalhos e rodapés
+                e escolha “Salvar como PDF” se quiser um arquivo.
+                Confira as medidas em uma impressão de teste.
+              </p>
+
+              <p id="layoutInfo"></p>
+            </div>
+          </div>
+
+          <details class="card reference">
+            <summary>
+              Modelo de referência
+              <span>＋</span>
+            </summary>
+
+            <img
+              src="referencia.jpg"
+              alt="Modelo original: código de barras à esquerda, produto, códigos e validade à direita."
+            >
+
+            <p>
+              Estrutura baseada na imagem enviada. As medidas e a
+              fonte da foto não foram informadas.
+            </p>
+          </details>
+        </section>
+      </div>
+
+      <footer>
+        ETIQUETA FÁCIL
+        <span>Preencher. Conferir. Imprimir.</span>
+      </footer>
+    </main>
+
+    <!-- Etiquetas geradas para impressão -->
+    <div id="printArea"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
